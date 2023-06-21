@@ -3,30 +3,35 @@
     "nombre": "Pablo",
     "marca": "Honda",
     "modelo": "CBR 250",
-    "kmUltimoServicio": 10000
+    "kmUltimoServicio": 10000,
+    "patente": "AAA11"
     },
     {
     "nombre": "Juan",
     "marca": "Yamaha",
     "modelo": "YZF-R6",
-    "kmUltimoServicio": 8000
+    "kmUltimoServicio": 8000,
+    "patente": "BBB22"
     },
     {
     "nombre": "Ana",
     "marca": "Suzuki",
     "modelo": "GSX-R750",
-    "kmUltimoServicio": 12000
+    "kmUltimoServicio": 12000,
+    "patente": "CCC33"
     },
     {
     "nombre": "Luis",
     "marca": "Kawasaki",
     "modelo": "Ninja 300",
-    "kmUltimoServicio": 6000
+    "kmUltimoServicio": 6000,
+    "patente": "DDD44"
     },
     {
     "nombre": "María",
     "marca": "Ducati",
     "modelo": "Monster 821",
-    "kmUltimoServicio": 15000
+    "kmUltimoServicio": 15000,
+    "patente": "EEE55"
     }
 ]

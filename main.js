@@ -1,93 +1,17 @@
-let motos;
+let motos = []; // Array para la base de datos original (JSON)
+let nuevosIngresos = []; // Array local para los nuevos ingresos, ya que HTTP no permite escribir en JSON
 
-// Función para cargar los datos de las motos desde el archivo JSON
-async function cargarMotos() {
-    try {
-        const response = await fetch('motos.json');
-        motos = await response.json();
-        console.log('Motos cargadas:', motos);
-    } catch (error) {
-        console.log('Error al cargar las motos:', error);
-    }
+function cargarMotos() {
+    fetch('../motos.json')
+    .then(response => response.json())
+    .then(data => {
+    motos = data;
+    })
+    .catch(error => {
+    console.error('Error al cargar las motos desde el archivo JSON:', error);
+    });
 }
 
-// Función para guardar los datos de las motos en el archivo JSON
-async function guardarMotos() {
-    try {
-        const response = await fetch('motos.json', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(motos)
-        });
-        console.log('Motos guardadas correctamente');
-    } catch (error) {
-        console.log('Error al guardar las motos:', error);
-    }
-}
-
-// Función para mostrar el formulario de agregar moto
-function mostrarFormulario() {
-    const formularioDiv = document.getElementById("formularioDiv");
-
-    // Crear el formulario
-    const form = document.createElement("form");
-        form.id = "agregarForm";
-
-    const nombreLabel = document.createElement("label");
-        nombreLabel.for = "nombreInput";
-        nombreLabel.textContent = "Nombre Cliente:";
-    const nombreInput = document.createElement("input");
-        nombreInput.type = "text";
-        nombreInput.id = "nombreInput";
-        nombreInput.required = true;
-    const marcaLabel = document.createElement("label");
-        marcaLabel.for = "marcaInput";
-        marcaLabel.textContent = "Marca:";
-    const marcaInput = document.createElement("input");
-        marcaInput.type = "text";
-        marcaInput.id = "marcaInput";
-        marcaInput.required = true;
-    const modeloLabel = document.createElement("label");
-        modeloLabel.for = "modeloInput";
-        modeloLabel.textContent = "Modelo:";
-    const modeloInput = document.createElement("input");
-        modeloInput.type = "text";
-        modeloInput.id = "modeloInput";
-        modeloInput.required = true;
-    const kmUltimoServicioLabel = document.createElement("label");
-        kmUltimoServicioLabel.for = "kmUltimoServicioInput";
-        kmUltimoServicioLabel.textContent = "Kilometraje del Último Servicio:";
-    const kmUltimoServicioInput = document.createElement("input");
-        kmUltimoServicioInput.type = "number";
-        kmUltimoServicioInput.id = "kmUltimoServicioInput";
-        kmUltimoServicioInput.required = true;
-
-    const submitButton = document.createElement("button");
-        submitButton.type = "submit";
-        submitButton.textContent = "Agregar Moto";
-
-    form.appendChild(nombreLabel);
-    form.appendChild(nombreInput);
-    form.appendChild(marcaLabel);
-    form.appendChild(marcaInput);
-    form.appendChild(modeloLabel);
-    form.appendChild(modeloInput);
-    form.appendChild(kmUltimoServicioLabel);
-    form.appendChild(kmUltimoServicioInput);
-    form.appendChild(submitButton);
-
-    formularioDiv.appendChild(form);
-}
-
-// Función para ocultar el formulario de agregar moto
-function ocultarFormulario() {
-    const formularioDiv = document.getElementById("formularioDiv");
-    formularioDiv.innerHTML = "";
-}
-
-// Función para agregar una moto nueva
 function agregarMoto(event) {
     event.preventDefault();
 
@@ -95,52 +19,113 @@ function agregarMoto(event) {
     const marca = document.getElementById("marcaInput").value;
     const modelo = document.getElementById("modeloInput").value;
     const kmUltimoServicio = parseInt(document.getElementById("kmUltimoServicioInput").value);
+    const patente = document.getElementById("patenteInput").value;
 
-    // Agregar la moto a la base de datos
-    const nuevaMoto = { nombre, marca, modelo, kmUltimoServicio };
-    motos.push(nuevaMoto);
-    console.log("Moto agregada:", nuevaMoto);
+    const nuevaMoto = {
+        nombre: nombre,
+        marca: marca,
+        modelo: modelo,
+        kmUltimoServicio: kmUltimoServicio,
+        patente: patente,
+    };
 
-    // Guardar las motos en el archivo JSON
-    guardarMotos();
-
-    // Limpiar el formulario después de agregar la moto
+    nuevosIngresos.push(nuevaMoto);
+    guardarMotosEnLocalStorage();
     document.getElementById("agregarForm").reset();
-
-    // Ocultar el formulario
-    ocultarFormulario();
+    alert("Moto agregada con éxito");
+    console.log("Motos Recientemente Agregadas:", nuevosIngresos);
+    setTimeout(location. reload(), 3000);
 }
 
-// Función para eliminar una moto
-function eliminarMoto() {
-    const index = prompt("Ingresa el índice de la moto a eliminar (0 - " + (motos.length - 1) + "):");
-
-// Verificar si el índice es válido
-    if (index >= 0 && index < motos.length) {
-        const motoEliminada = motos.splice(index, 1);
-        console.log("Moto eliminada:", motoEliminada);
-
-// Guardar las motos en el archivo JSON después de eliminar
-        guardarMotos();
-    } else {
-        console.log("Índice inválido");
-    }
+function guardarMotosEnLocalStorage() {
+    localStorage.setItem("motos", JSON.stringify(nuevosIngresos));
 }
 
-// Función para consultar el próximo mantenimiento
-function consultarProximoMantenimiento() {
-// Lógica para calcular el próximo mantenimiento
-// ...
-console.log("Próximo mantenimiento:");
+// Cargar los datos del localStorage y del archivo JSON al iniciar la aplicación
+window.addEventListener("DOMContentLoaded", () => {
+const motosGuardadas = localStorage.getItem("motos");
+if (motosGuardadas) {
+    nuevosIngresos = JSON.parse(motosGuardadas);
 }
-
-// Event Listeners
-document.getElementById("agregarBtn").addEventListener("click", mostrarFormulario);
-document.getElementById("agregarForm").addEventListener("submit", agregarMoto);
-document.getElementById("eliminarBtn").addEventListener("click", eliminarMoto);
-document.getElementById("consultarBtn").addEventListener("click", consultarProximoMantenimiento);
-
-// Cargar las motos al cargar la página
-window.addEventListener("load", function() {
-    cargarMotos();
+cargarMotos();
 });
+
+function mostrarFormulario() {
+    const formDiv = document.getElementById("formDiv");
+    formDiv.innerHTML = `
+    <form id="agregarForm">
+    <label for="nombreInput">Nombre Cliente:</label>
+    <input type="text" id="nombreInput" required><br>
+
+    <label for="marcaInput">Marca:</label>
+    <input type="text" id="marcaInput" required><br>
+
+    <label for="modeloInput">Modelo:</label>
+    <input type="text" id="modeloInput" required><br>
+
+    <label for="kmUltimoServicioInput">Kilometraje Proximo Servicio:</label>
+    <input type="number" id="kmUltimoServicioInput" required><br>
+
+    <label for="patenteInput">Patente:</label>
+    <input type="text" id="patenteInput" required><br>
+
+    <button type="submit">Agregar Moto</button>
+    </form>
+`;
+
+document.getElementById("agregarForm").addEventListener("submit", agregarMoto);
+};
+
+document.getElementById("agregarMotoBtn").addEventListener("click", () => {
+    mostrarFormulario();
+});
+
+function consultarProximoMantenimiento(event) {
+    event.preventDefault();
+
+    const patente = document.getElementById("patenteConsultaInput").value;
+    const kmActual = parseInt(document.getElementById("kmActualInput").value);
+
+    let motoEncontrada = motos.find(moto => moto.patente === patente);
+    if (!motoEncontrada) {
+    motoEncontrada = nuevosIngresos.find(moto => moto.patente === patente);
+    }
+
+    if (motoEncontrada) {
+    const kmUltimoServicio = parseInt(motoEncontrada.kmUltimoServicio);
+    let kmFaltantes = kmUltimoServicio - kmActual;
+    let mantenimiento = kmUltimoServicio;
+    let kmExceso = kmFaltantes * -1;
+
+    if (kmFaltantes > 0) {
+        alert(`El próximo mantenimiento le corresponde a los ${mantenimiento} kms, en ${kmFaltantes} kilómetros más.`);
+    } else {
+        alert(`USTED SE HA PASADO EN ${kmExceso} KMS, FAVOR REALIZAR MANTENIMIENTO A LA BREVEDAD.`);
+    }
+    } else {
+    alert("No se encontró una moto con la patente ingresada.");
+    }
+
+    document.getElementById("agregarForm2").reset();
+
+}
+
+function mostrarFormularioConsulta() {
+    const formDivConsulta = document.getElementById("formDivConsulta");
+    formDivConsulta.innerHTML = `
+    <form id="agregarForm2">
+
+    <label for="patenteConsultaInput">Patente:</label>
+    <input type="text" id="patenteConsultaInput" required><br>
+
+    <label for="kmActualInput">Kilometraje Actual:</label>
+    <input type="number" id="kmActualInput" required><br>
+
+    <button type="submit">Consultar Moto</button>
+    </form>
+`;
+
+document.getElementById("agregarForm2").addEventListener("submit", consultarProximoMantenimiento);
+};
+
+document.getElementById("consultarMantenimientoBtn").addEventListener("click", mostrarFormularioConsulta);
