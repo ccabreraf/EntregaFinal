@@ -113,25 +113,25 @@ function agregarMoto(event) {
 
 // Función para eliminar una moto
 function eliminarMoto() {
-  const index = prompt("Ingresa el índice de la moto a eliminar (0 - " + (motos.length - 1) + "):");
+    const index = prompt("Ingresa el índice de la moto a eliminar (0 - " + (motos.length - 1) + "):");
 
-  // Verificar si el índice es válido
-  if (index >= 0 && index < motos.length) {
-    const motoEliminada = motos.splice(index, 1);
-    console.log("Moto eliminada:", motoEliminada);
+// Verificar si el índice es válido
+    if (index >= 0 && index < motos.length) {
+        const motoEliminada = motos.splice(index, 1);
+        console.log("Moto eliminada:", motoEliminada);
 
-    // Guardar las motos en el archivo JSON después de eliminar
-    guardarMotos();
-  } else {
-    console.log("Índice inválido");
-  }
+// Guardar las motos en el archivo JSON después de eliminar
+        guardarMotos();
+    } else {
+        console.log("Índice inválido");
+    }
 }
 
 // Función para consultar el próximo mantenimiento
 function consultarProximoMantenimiento() {
-  // Lógica para calcular el próximo mantenimiento
-  // ...
-  console.log("Próximo mantenimiento:");
+// Lógica para calcular el próximo mantenimiento
+// ...
+console.log("Próximo mantenimiento:");
 }
 
 // Event Listeners
