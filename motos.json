@@ -1,0 +1,32 @@
+[
+    {
+    "nombre": "Pablo",
+    "marca": "Honda",
+    "modelo": "CBR 250",
+    "kmUltimoServicio": 10000
+    },
+    {
+    "nombre": "Juan",
+    "marca": "Yamaha",
+    "modelo": "YZF-R6",
+    "kmUltimoServicio": 8000
+    },
+    {
+    "nombre": "Ana",
+    "marca": "Suzuki",
+    "modelo": "GSX-R750",
+    "kmUltimoServicio": 12000
+    },
+    {
+    "nombre": "Luis",
+    "marca": "Kawasaki",
+    "modelo": "Ninja 300",
+    "kmUltimoServicio": 6000
+    },
+    {
+    "nombre": "María",
+    "marca": "Ducati",
+    "modelo": "Monster 821",
+    "kmUltimoServicio": 15000
+    }
+]

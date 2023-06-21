@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Motocicletas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Taller de Motocicletas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./sections/webapp.html">WebApp Taller</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <section id="inicio" class="py-5">
+    <div class="container">
+        <h1>Bienvenido al Taller de Motocicletas</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec nisl id mauris posuere posuere. Ut id purus risus. Nulla eget tellus euismod, tempor enim ut, ultricies leo. Duis nec semper enim.</p>
+    </div>
+    </section>
+    <section id="servicios" class="py-5 bg-light">
+    <div class="container">
+        <h2>Nuestros Servicios</h2>
+        <p>Ofrecemos una amplia gama de servicios para mantener tu motocicleta en óptimas condiciones:</p>
+        <ul>
+        <li>Cambio de aceite</li>
+        <li>Ajuste de frenos</li>
+        <li>Revisión de la suspensión</li>
+        <li>Mantenimiento del sistema eléctrico</li>
+        <li>Reparación de averías</li>
+        </ul>
+    </div>
+    </section>
+    <section id="contacto" class="py-5">
+    <div class="container">
+        <h2>Contacto</h2>
+        <p>Ponte en contacto con nosotros para programar una cita o si tienes alguna pregunta:</p>
+        <form>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+    </section>
+</main>
+<script src="./main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
