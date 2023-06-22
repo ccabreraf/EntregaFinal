@@ -48,7 +48,7 @@ function guardarMotosEnLocalStorage() {
     localStorage.setItem("motos", JSON.stringify(nuevosIngresos));
 }
 
-// Cargar los datos del localStorage y del archivo JSON al iniciar la aplicación
+// Para cargar los datos del localStorage y del archivo JSON al iniciar la aplicación
 window.addEventListener("DOMContentLoaded", () => {
 const motosGuardadas = localStorage.getItem("motos");
 if (motosGuardadas) {
