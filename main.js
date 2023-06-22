@@ -32,10 +32,17 @@ function agregarMoto(event) {
     nuevosIngresos.push(nuevaMoto);
     guardarMotosEnLocalStorage();
     document.getElementById("agregarForm").reset();
-    alert("Moto agregada con éxito");
-    console.log("Motos Recientemente Agregadas:", nuevosIngresos);
-    setTimeout(location. reload(), 3000);
-}
+    Swal.fire(
+        'Excelente!',
+        'Moto agregada con éxito!',
+        'success'
+    ).then(() => {
+        setTimeout(() => {
+            location.reload();
+        }, 1500);
+    });
+    
+    console.log("Motos Recientemente Agregadas:", nuevosIngresos);}
 
 function guardarMotosEnLocalStorage() {
     localStorage.setItem("motos", JSON.stringify(nuevosIngresos));
@@ -92,18 +99,30 @@ function consultarProximoMantenimiento(event) {
     }
 
     if (motoEncontrada) {
-    const kmUltimoServicio = parseInt(motoEncontrada.kmUltimoServicio);
-    let kmFaltantes = kmUltimoServicio - kmActual;
-    let mantenimiento = kmUltimoServicio;
-    let kmExceso = kmFaltantes * -1;
+        const kmUltimoServicio = parseInt(motoEncontrada.kmUltimoServicio);
+        let kmFaltantes = kmUltimoServicio - kmActual;
+        let mantenimiento = kmUltimoServicio;
+        let kmExceso = kmFaltantes * -1;
 
-    if (kmFaltantes > 0) {
-        alert(`El próximo mantenimiento le corresponde a los ${mantenimiento} kms, en ${kmFaltantes} kilómetros más.`);
+        if (kmFaltantes > 0) {
+            Swal.fire(
+                'Estás al día!',
+                `El próximo mantenimiento le corresponde a los ${mantenimiento} kms, en ${kmFaltantes} kilómetros más.`,
+                'success'
+            )
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'OJO!...',
+                text: `USTED SE HA PASADO EN ${kmExceso} KMS, FAVOR REALIZAR MANTENIMIENTO A LA BREVEDAD.`,
+            })
+        }
     } else {
-        alert(`USTED SE HA PASADO EN ${kmExceso} KMS, FAVOR REALIZAR MANTENIMIENTO A LA BREVEDAD.`);
-    }
-    } else {
-    alert("No se encontró una moto con la patente ingresada.");
+        Swal.fire(
+            'Escribiste bien?',
+            'No se encontró una moto con la patente ingresada.',
+            'question'
+        )
     }
 
     document.getElementById("agregarForm2").reset();
